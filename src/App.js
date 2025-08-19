@@ -164,7 +164,10 @@ const Header = () => {
               FAQ
             </Link>
             <Button
-              onClick={() => scrollToSection('book-demo')}
+              as="a"
+              href="https://calendly.com/kunal14202/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               bg="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
               color="white"
               _hover={{
@@ -328,7 +331,10 @@ function App() {
               
               <HStack spacing={4} flexWrap="wrap" justify={{ base: 'center', lg: 'start' }}>
                 <Button
-                  onClick={() => document.getElementById('about').scrollIntoView({ behavior: 'smooth' })}
+                  as="a"
+                  href="https://calendly.com/kunal14202/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   size="lg"
                   bg="white"
                   color="purple.600"
