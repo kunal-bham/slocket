@@ -88,7 +88,7 @@ const Header = () => {
         <Flex align="center">
           <HStack spacing={3}>
             <Image 
-              src="/logo-transparent.png" 
+              src={`${process.env.PUBLIC_URL}/logo-transparent.png`} 
               alt="Slocket Logo" 
               h="45px" 
               w="auto"
@@ -379,7 +379,7 @@ function App() {
             <FloatingElement delay={0}>
               <Box position="relative">
                 <Image 
-                  src="/logo-transparent.png" 
+                  src={`${process.env.PUBLIC_URL}/logo-transparent.png`} 
                   alt="Slocket Logo" 
                   maxH="400px"
                   w="auto"
@@ -547,7 +547,7 @@ function App() {
             <VStack align={{ base: 'center', md: 'start' }} spacing={4}>
               <HStack spacing={3}>
                 <Image 
-                  src="/logo-transparent.png" 
+                  src={`${process.env.PUBLIC_URL}/logo-transparent.png`} 
                   alt="Slocket Logo" 
                   h="35px" 
                   w="auto"
