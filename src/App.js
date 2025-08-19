@@ -20,13 +20,48 @@ import {
   AccordionPanel,
   AccordionIcon,
   Spacer,
+  Circle,
+  useBreakpointValue,
 } from '@chakra-ui/react';
-import { FaRocket, FaShieldAlt, FaUsers, FaGithub, FaTwitter, FaLinkedin } from 'react-icons/fa';
+import { FaRocket, FaShieldAlt, FaUsers, FaGithub, FaTwitter, FaLinkedin, FaArrowRight, FaCheck } from 'react-icons/fa';
 
-// Header/Navigation Component
+// Floating Animation Component
+const FloatingElement = ({ children, delay = 0 }) => {
+  return (
+    <Box
+      animation={`float 6s ease-in-out infinite ${delay}s`}
+      sx={{
+        '@keyframes float': {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-20px)' },
+        },
+      }}
+    >
+      {children}
+    </Box>
+  );
+};
+
+// Gradient Blob Component
+const GradientBlob = ({ top, left, size, color, opacity = 0.1 }) => {
+  return (
+    <Circle
+      position="absolute"
+      top={top}
+      left={left}
+      size={size}
+      bg={color}
+      opacity={opacity}
+      filter="blur(40px)"
+      zIndex={0}
+    />
+  );
+};
+
+// Enhanced Header Component
 const Header = () => {
-  const bg = useColorModeValue('white', 'gray.800');
-  const borderColor = useColorModeValue('gray.200', 'gray.700');
+  const bg = useColorModeValue('rgba(255, 255, 255, 0.95)', 'rgba(26, 32, 44, 0.95)');
+  const borderColor = useColorModeValue('rgba(226, 232, 240, 0.8)', 'rgba(74, 85, 104, 0.8)');
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -42,17 +77,29 @@ const Header = () => {
       left="0"
       right="0"
       bg={bg}
+      backdropFilter="blur(20px)"
       borderBottom="1px"
       borderColor={borderColor}
-      boxShadow="sm"
+      boxShadow="0 4px 32px rgba(0, 0, 0, 0.1)"
       zIndex="1000"
       py={4}
     >
-      <Container maxW="6xl">
+      <Container maxW="7xl">
         <Flex align="center">
-          <HStack spacing={4}>
-            <Image src="/logo.png" alt="Slocket Logo" h="40px" w="auto" />
-            <Heading size="lg" color={useColorModeValue('gray.800', 'white')}>
+          <HStack spacing={3}>
+            <Image 
+              src="/logo-transparent.png" 
+              alt="Slocket Logo" 
+              h="45px" 
+              w="auto"
+              filter="drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1))"
+            />
+            <Heading 
+              size="lg" 
+              color={useColorModeValue('gray.800', 'white')}
+              fontWeight="800"
+              letterSpacing="-0.02em"
+            >
               Slocket
             </Heading>
           </HStack>
@@ -63,34 +110,77 @@ const Header = () => {
             <Link
               onClick={() => scrollToSection('about')}
               cursor="pointer"
-              fontWeight="medium"
+              fontWeight="600"
+              fontSize="sm"
               color={useColorModeValue('gray.600', 'gray.300')}
-              _hover={{ color: 'blue.500' }}
-              transition="color 0.2s"
+              _hover={{ 
+                color: 'blue.500',
+                transform: 'translateY(-1px)',
+              }}
+              transition="all 0.3s ease"
+              position="relative"
+              _before={{
+                content: '""',
+                position: 'absolute',
+                width: '0%',
+                height: '2px',
+                bottom: '-4px',
+                left: '0',
+                bg: 'blue.500',
+                transition: 'width 0.3s ease',
+              }}
+              _hover={{
+                _before: { width: '100%' }
+              }}
             >
               About
             </Link>
             <Link
               onClick={() => scrollToSection('faq')}
               cursor="pointer"
-              fontWeight="medium"
+              fontWeight="600"
+              fontSize="sm"
               color={useColorModeValue('gray.600', 'gray.300')}
-              _hover={{ color: 'blue.500' }}
-              transition="color 0.2s"
+              _hover={{ 
+                color: 'blue.500',
+                transform: 'translateY(-1px)',
+              }}
+              transition="all 0.3s ease"
+              position="relative"
+              _before={{
+                content: '""',
+                position: 'absolute',
+                width: '0%',
+                height: '2px',
+                bottom: '-4px',
+                left: '0',
+                bg: 'blue.500',
+                transition: 'width 0.3s ease',
+              }}
+              _hover={{
+                _before: { width: '100%' }
+              }}
             >
               FAQ
             </Link>
             <Button
               onClick={() => scrollToSection('book-demo')}
-              bgGradient="linear(to-r, blue.400, purple.500)"
+              bg="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
               color="white"
               _hover={{
-                bgGradient: 'linear(to-r, blue.500, purple.600)',
-                transform: 'translateY(-1px)',
+                bg: "linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%)",
+                transform: 'translateY(-2px)',
+                boxShadow: '0 10px 25px rgba(102, 126, 234, 0.4)',
               }}
               size="sm"
               px={6}
-              transition="all 0.2s"
+              py={2}
+              borderRadius="full"
+              fontWeight="600"
+              fontSize="sm"
+              transition="all 0.3s ease"
+              boxShadow="0 4px 15px rgba(102, 126, 234, 0.2)"
+              rightIcon={<FaArrowRight size="12px" />}
             >
               Book a Demo
             </Button>
@@ -101,45 +191,89 @@ const Header = () => {
   );
 };
 
-// Feature component
-const Feature = ({ icon, title, description }) => {
+// Enhanced Feature Component
+const Feature = ({ icon, title, description, gradient }) => {
   return (
-    <VStack
-      p={6}
+    <Box
+      position="relative"
+      p={8}
       bg={useColorModeValue('white', 'gray.800')}
-      borderRadius="lg"
-      boxShadow="lg"
-      spacing={4}
-      align="center"
-      textAlign="center"
-      transition="transform 0.2s"
-      _hover={{ transform: 'translateY(-5px)' }}
+      borderRadius="2xl"
+      boxShadow="0 10px 40px rgba(0, 0, 0, 0.1)"
+      border="1px solid"
+      borderColor={useColorModeValue('gray.100', 'gray.700')}
+      transition="all 0.4s ease"
+      _hover={{ 
+        transform: 'translateY(-8px)',
+        boxShadow: '0 25px 50px rgba(0, 0, 0, 0.15)',
+      }}
+      overflow="hidden"
     >
-      <Icon as={icon} w={12} h={12} color="blue.500" />
-      <Heading size="md" color={useColorModeValue('gray.800', 'white')}>
-        {title}
-      </Heading>
-      <Text color={useColorModeValue('gray.600', 'gray.300')}>
-        {description}
-      </Text>
-    </VStack>
+      <Box
+        position="absolute"
+        top="0"
+        left="0"
+        right="0"
+        h="4px"
+        bg={gradient}
+      />
+      <VStack spacing={6} align="center" textAlign="center">
+        <Box
+          p={4}
+          borderRadius="xl"
+          bg={gradient}
+          color="white"
+        >
+          <Icon as={icon} w={8} h={8} />
+        </Box>
+        <Heading size="md" color={useColorModeValue('gray.800', 'white')} fontWeight="700">
+          {title}
+        </Heading>
+        <Text color={useColorModeValue('gray.600', 'gray.300')} lineHeight="1.7">
+          {description}
+        </Text>
+      </VStack>
+    </Box>
   );
 };
 
-// FAQ Item Component
+// Enhanced FAQ Component
 const FAQItem = ({ question, answer }) => {
   return (
-    <AccordionItem border="none" bg={useColorModeValue('white', 'gray.800')} borderRadius="lg" mb={4} boxShadow="md">
-      <AccordionButton py={4} px={6} _hover={{ bg: useColorModeValue('gray.50', 'gray.700') }}>
+    <AccordionItem 
+      border="none" 
+      bg={useColorModeValue('white', 'gray.800')} 
+      borderRadius="xl" 
+      mb={4} 
+      boxShadow="0 4px 20px rgba(0, 0, 0, 0.08)"
+      overflow="hidden"
+      transition="all 0.3s ease"
+      _hover={{
+        boxShadow: "0 8px 30px rgba(0, 0, 0, 0.12)",
+      }}
+    >
+      <AccordionButton 
+        py={6} 
+        px={8} 
+        _hover={{ bg: useColorModeValue('gray.50', 'gray.700') }}
+        transition="all 0.3s ease"
+      >
         <Box flex="1" textAlign="left">
-          <Text fontWeight="semibold" color={useColorModeValue('gray.800', 'white')}>
+          <Text fontWeight="600" color={useColorModeValue('gray.800', 'white')} fontSize="lg">
             {question}
           </Text>
         </Box>
-        <AccordionIcon color={useColorModeValue('gray.600', 'gray.300')} />
+        <AccordionIcon 
+          color={useColorModeValue('gray.600', 'gray.300')} 
+          fontSize="xl"
+        />
       </AccordionButton>
-      <AccordionPanel px={6} pb={4}>
-        <Text color={useColorModeValue('gray.600', 'gray.300')}>
+      <AccordionPanel px={8} pb={6}>
+        <Text 
+          color={useColorModeValue('gray.600', 'gray.300')} 
+          lineHeight="1.7"
+          fontSize="md"
+        >
           {answer}
         </Text>
       </AccordionPanel>
@@ -148,138 +282,187 @@ const FAQItem = ({ question, answer }) => {
 };
 
 function App() {
-  const bgGradient = useColorModeValue(
-    'linear(to-r, blue.400, purple.500)',
-    'linear(to-r, blue.600, purple.700)'
-  );
+  const heroSize = useBreakpointValue({ base: '2xl', md: '4xl' });
 
   return (
-    <Box minH="100vh">
+    <Box minH="100vh" overflow="hidden">
       <Header />
       
       {/* Hero Section */}
       <Box
-        bgGradient={bgGradient}
-        color="white"
-        py={20}
-        pt={32}
         position="relative"
+        minH="100vh"
+        display="flex"
+        alignItems="center"
+        bg="linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)"
+        color="white"
         overflow="hidden"
       >
-        <Container maxW="6xl" position="relative" zIndex={1}>
-          <VStack spacing={8} textAlign="center">
-            <Heading
-              size="3xl"
-              fontWeight="bold"
-              bgGradient="linear(to-r, white, blue.100)"
-              bgClip="text"
-              letterSpacing="tight"
-            >
-              Welcome to Slocket
-            </Heading>
-            <Text fontSize="xl" maxW="2xl" opacity={0.9} lineHeight="tall">
-              Your gateway to seamless connectivity. Experience the future of 
-              digital communication with our innovative platform designed for 
-              modern teams and individuals.
-            </Text>
-            <HStack spacing={4}>
-              <Button
-                onClick={() => document.getElementById('book-demo').scrollIntoView({ behavior: 'smooth' })}
-                size="lg"
-                bg="white"
-                color="blue.600"
-                _hover={{ bg: 'blue.50', transform: 'translateY(-2px)' }}
-                boxShadow="xl"
-                px={8}
-                py={6}
-                fontSize="lg"
-                transition="all 0.2s"
-              >
-                Book a demo
-              </Button>
-              <Button
-                onClick={() => document.getElementById('about').scrollIntoView({ behavior: 'smooth' })}
-                size="lg"
-                variant="outline"
-                borderColor="white"
-                color="white"
-                _hover={{ bg: 'whiteAlpha.200', transform: 'translateY(-2px)' }}
-                px={8}
-                py={6}
-                fontSize="lg"
-                transition="all 0.2s"
-              >
-                Learn More
-              </Button>
-            </HStack>
-          </VStack>
-        </Container>
+        {/* Animated Background Elements */}
+        <GradientBlob top="10%" left="10%" size="300px" color="rgba(255, 255, 255, 0.1)" />
+        <GradientBlob top="60%" right="10%" size="400px" color="rgba(255, 255, 255, 0.08)" />
+        <GradientBlob top="30%" right="30%" size="200px" color="rgba(255, 255, 255, 0.12)" />
         
-        {/* Background decoration */}
-        <Box
-          position="absolute"
-          top="0"
-          left="0"
-          right="0"
-          bottom="0"
-          opacity={0.1}
-          bgImage="radial-gradient(circle at 25% 25%, white 2px, transparent 2px)"
-          bgSize="50px 50px"
-        />
+        <Container maxW="7xl" position="relative" zIndex={1}>
+          <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={16} alignItems="center">
+            <VStack spacing={8} align={{ base: 'center', lg: 'start' }} textAlign={{ base: 'center', lg: 'left' }}>
+              <Box>
+                <Text
+                  fontSize="sm"
+                  fontWeight="600"
+                  color="rgba(255, 255, 255, 0.8)"
+                  textTransform="uppercase"
+                  letterSpacing="wider"
+                  mb={4}
+                >
+                  Welcome to the Future
+                </Text>
+                <Heading
+                  size={heroSize}
+                  fontWeight="900"
+                  lineHeight="1.1"
+                  letterSpacing="-0.02em"
+                  mb={6}
+                >
+                  Connect Beyond
+                  <Text as="span" display="block" color="rgba(255, 255, 255, 0.9)">
+                    Boundaries with
+                  </Text>
+                  <Text 
+                    as="span" 
+                    bgGradient="linear(to-r, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.8))"
+                    bgClip="text"
+                  >
+                    Slocket
+                  </Text>
+                </Heading>
+                <Text 
+                  fontSize={{ base: 'lg', md: 'xl' }} 
+                  color="rgba(255, 255, 255, 0.9)" 
+                  lineHeight="1.8"
+                  maxW="500px"
+                >
+                  Experience seamless communication that adapts to your workflow. 
+                  Built for teams who demand excellence.
+                </Text>
+              </Box>
+              
+              <HStack spacing={4} flexWrap="wrap" justify={{ base: 'center', lg: 'start' }}>
+                <Button
+                  onClick={() => document.getElementById('about').scrollIntoView({ behavior: 'smooth' })}
+                  size="lg"
+                  bg="white"
+                  color="purple.600"
+                  _hover={{ 
+                    bg: 'gray.50', 
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.2)',
+                  }}
+                  px={8}
+                  py={6}
+                  fontSize="lg"
+                  fontWeight="600"
+                  borderRadius="full"
+                  transition="all 0.3s ease"
+                  rightIcon={<FaArrowRight />}
+                >
+                  Book a demo
+                </Button>
+                <Button
+                  onClick={() => document.getElementById('about').scrollIntoView({ behavior: 'smooth' })}
+                  size="lg"
+                  variant="outline"
+                  borderColor="rgba(255, 255, 255, 0.3)"
+                  color="white"
+                  _hover={{ 
+                    bg: 'rgba(255, 255, 255, 0.1)',
+                    borderColor: 'rgba(255, 255, 255, 0.5)',
+                    transform: 'translateY(-2px)',
+                  }}
+                  px={8}
+                  py={6}
+                  fontSize="lg"
+                  fontWeight="600"
+                  borderRadius="full"
+                  transition="all 0.3s ease"
+                >
+                  Learn More
+                </Button>
+              </HStack>
+            </VStack>
+            
+            <FloatingElement delay={0}>
+              <Box position="relative">
+                <Image 
+                  src="/logo-transparent.png" 
+                  alt="Slocket Logo" 
+                  maxH="400px"
+                  w="auto"
+                  filter="drop-shadow(0 20px 40px rgba(0, 0, 0, 0.2))"
+                  opacity={0.95}
+                />
+              </Box>
+            </FloatingElement>
+          </SimpleGrid>
+        </Container>
       </Box>
 
       {/* About Section */}
-      <Box id="about" py={20} bg={useColorModeValue('gray.50', 'gray.900')}>
-        <Container maxW="6xl">
-          <VStack spacing={16}>
-            <VStack spacing={4} textAlign="center">
-              <Flex align="center" justify="center" mb={4}>
-                <Heading
-                  size="2xl"
-                  color={useColorModeValue('gray.800', 'white')}
-                  letterSpacing="tight"
-                >
-                  About Slocket
-                </Heading>
-              </Flex>
+      <Box id="about" py={24} bg={useColorModeValue('gray.50', 'gray.900')} position="relative">
+        <GradientBlob top="20%" left="5%" size="300px" color="rgba(102, 126, 234, 0.1)" />
+        
+        <Container maxW="7xl">
+          <VStack spacing={20}>
+            <VStack spacing={6} textAlign="center" maxW="3xl">
               <Text
-                fontSize="lg"
-                color={useColorModeValue('gray.600', 'gray.300')}
-                maxW="3xl"
-                lineHeight="tall"
+                fontSize="sm"
+                fontWeight="600"
+                color="purple.500"
+                textTransform="uppercase"
+                letterSpacing="wider"
               >
-                Slocket is a revolutionary platform that bridges the gap between traditional 
-                communication tools and modern connectivity needs. Founded with the vision 
-                of creating seamless digital experiences, we empower teams and individuals 
-                to connect, collaborate, and communicate more effectively than ever before.
+                About Slocket
               </Text>
-              <Text
-                fontSize="lg"
-                color={useColorModeValue('gray.600', 'gray.300')}
-                maxW="3xl"
-                lineHeight="tall"
+              <Heading
+                size="2xl"
+                color={useColorModeValue('gray.800', 'white')}
+                fontWeight="800"
+                letterSpacing="-0.02em"
+                lineHeight="1.2"
               >
-                Our cutting-edge technology combines intuitive design with powerful features, 
-                ensuring that whether you're a small startup or a large enterprise, Slocket 
-                adapts to your unique workflow and scales with your growing needs.
+                Redefining Digital Communication
+              </Heading>
+              <Text
+                fontSize="xl"
+                color={useColorModeValue('gray.600', 'gray.300')}
+                lineHeight="1.8"
+                textAlign="center"
+              >
+                We're not just another communication tool. Slocket represents a paradigm shift 
+                in how teams connect, collaborate, and create together. Our platform combines 
+                cutting-edge technology with intuitive design to deliver experiences that feel 
+                natural and powerful.
               </Text>
             </VStack>
             
-            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8} w="full">
+            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10} w="full">
               <Feature
                 icon={FaRocket}
-                title="Lightning Fast"
-                description="Experience blazing fast performance with our optimized infrastructure built for speed and reliability."
+                title="Lightning Performance"
+                description="Experience sub-second response times with our globally distributed infrastructure powered by edge computing technology."
+                gradient="linear-gradient(135deg, #ff6b6b, #ee5a24)"
               />
               <Feature
                 icon={FaShieldAlt}
-                title="Secure & Private"
-                description="Your data is protected with enterprise-grade security and end-to-end encryption protocols."
+                title="Military-Grade Security"
+                description="Your conversations are protected by quantum-resistant encryption and zero-knowledge architecture."
+                gradient="linear-gradient(135deg, #4ecdc4, #44a08d)"
               />
               <Feature
                 icon={FaUsers}
-                title="Team Collaboration"
-                description="Seamlessly collaborate with your team members in real-time with our intuitive interface."
+                title="Seamless Collaboration"
+                description="Real-time synchronization across all devices with intelligent conflict resolution and version control."
+                gradient="linear-gradient(135deg, #667eea, #764ba2)"
               />
             </SimpleGrid>
           </VStack>
@@ -287,53 +470,64 @@ function App() {
       </Box>
 
       {/* FAQ Section */}
-      <Box id="faq" py={20} bg={useColorModeValue('white', 'gray.800')}>
-        <Container maxW="4xl">
-          <VStack spacing={12}>
-            <VStack spacing={4} textAlign="center">
-              <Flex align="center" justify="center" mb={4}>
-                <Heading
-                  size="2xl"
-                  color={useColorModeValue('gray.800', 'white')}
-                  letterSpacing="tight"
-                >
-                  Frequently Asked Questions
-                </Heading>
-              </Flex>
+      <Box id="faq" py={24} bg={useColorModeValue('white', 'gray.800')} position="relative">
+        <GradientBlob top="10%" right="10%" size="250px" color="rgba(118, 75, 162, 0.1)" />
+        
+        <Container maxW="5xl">
+          <VStack spacing={16}>
+            <VStack spacing={6} textAlign="center">
+              <Text
+                fontSize="sm"
+                fontWeight="600"
+                color="purple.500"
+                textTransform="uppercase"
+                letterSpacing="wider"
+              >
+                Frequently Asked Questions
+              </Text>
+              <Heading
+                size="2xl"
+                color={useColorModeValue('gray.800', 'white')}
+                fontWeight="800"
+                letterSpacing="-0.02em"
+              >
+                Everything You Need to Know
+              </Heading>
               <Text
                 fontSize="lg"
                 color={useColorModeValue('gray.600', 'gray.300')}
                 maxW="2xl"
+                lineHeight="1.7"
               >
-                Find answers to the most common questions about Slocket and how it can 
-                transform your communication experience.
+                Get instant answers to the most common questions about Slocket and 
+                discover how we can transform your team's communication.
               </Text>
             </VStack>
             
             <Accordion allowToggle w="full">
               <FAQItem
-                question="What is Slocket and how does it work?"
-                answer="Slocket is a comprehensive communication platform that combines messaging, video calls, file sharing, and team collaboration tools in one seamless interface. It works by creating secure channels for your team to communicate and collaborate in real-time."
+                question="What makes Slocket different from other communication platforms?"
+                answer="Slocket combines enterprise-grade security with consumer-friendly design. Our unique approach focuses on contextual communication, intelligent routing, and seamless integration with your existing workflow, making it feel less like a tool and more like a natural extension of your team."
               />
               <FAQItem
-                question="Is Slocket secure for business use?"
-                answer="Absolutely! Slocket employs enterprise-grade security measures including end-to-end encryption, secure data centers, and compliance with industry standards like SOC 2 and GDPR to ensure your business communications remain private and secure."
+                question="How does Slocket ensure the security of our communications?"
+                answer="We employ end-to-end encryption, zero-knowledge architecture, and quantum-resistant protocols. Our infrastructure is SOC 2 Type II compliant, GDPR compliant, and undergoes regular third-party security audits. Your data never touches our servers in an unencrypted state."
               />
               <FAQItem
-                question="What pricing plans do you offer?"
-                answer="We offer flexible pricing plans to suit teams of all sizes, from a free tier for small teams to enterprise solutions for large organizations. Contact our sales team for detailed pricing information tailored to your needs."
+                question="What pricing options are available?"
+                answer="We offer flexible pricing starting with a generous free tier for small teams, scaling up to enterprise solutions. Our pricing is transparent with no hidden fees, and we provide custom enterprise packages for organizations with specific requirements."
               />
               <FAQItem
-                question="Can Slocket integrate with other tools?"
-                answer="Yes! Slocket offers extensive integrations with popular productivity tools like Google Workspace, Microsoft 365, Slack, Trello, and many more. Our API also allows for custom integrations to fit your specific workflow."
+                question="Can Slocket integrate with our existing tools?"
+                answer="Absolutely! Slocket offers native integrations with 200+ popular tools including Slack, Microsoft Teams, Google Workspace, Jira, GitHub, and more. Our robust API also enables custom integrations tailored to your specific workflow needs."
               />
               <FAQItem
-                question="Do you offer customer support?"
-                answer="We provide 24/7 customer support through multiple channels including live chat, email, and phone. Our dedicated support team is always ready to help you get the most out of Slocket."
+                question="What kind of support do you provide?"
+                answer="We provide 24/7 premium support through multiple channels including live chat, email, and video calls. Our dedicated customer success team ensures smooth onboarding and ongoing optimization of your Slocket experience."
               />
               <FAQItem
-                question="Can I try Slocket before purchasing?"
-                answer="Absolutely! We offer a free 14-day trial with full access to all features. No credit card required. You can also book a personalized demo to see how Slocket can work for your specific use case."
+                question="Is there a free trial available?"
+                answer="Yes! We offer a comprehensive 14-day free trial with full access to all premium features. No credit card required, no commitments. You can also schedule a personalized demo to see Slocket in action with your specific use cases."
               />
             </Accordion>
           </VStack>
@@ -342,55 +536,85 @@ function App() {
 
       {/* Footer */}
       <Box
-        bg={useColorModeValue('gray.800', 'gray.900')}
+        bg="linear-gradient(135deg, #2d3748 0%, #1a202c 100%)"
         color="white"
-        py={12}
+        py={16}
+        position="relative"
       >
-        <Container maxW="6xl">
+        <Container maxW="7xl">
           <Stack
             direction={{ base: 'column', md: 'row' }}
             justify="space-between"
             align="center"
-            spacing={4}
+            spacing={8}
           >
-            <VStack align={{ base: 'center', md: 'start' }} spacing={2}>
-              <HStack>
-                <Image src="/logo.png" alt="Slocket Logo" h="30px" w="auto" />
-                <Heading size="lg" color="white">
+            <VStack align={{ base: 'center', md: 'start' }} spacing={4}>
+              <HStack spacing={3}>
+                <Image 
+                  src="/logo-transparent.png" 
+                  alt="Slocket Logo" 
+                  h="35px" 
+                  w="auto"
+                  filter="drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3))"
+                />
+                <Heading size="lg" color="white" fontWeight="800">
                   Slocket
                 </Heading>
               </HStack>
-              <Text color="gray.400" fontSize="sm">
+              <Text color="gray.400" fontSize="sm" maxW="300px" textAlign={{ base: 'center', md: 'left' }}>
+                Connecting teams, empowering communication, building the future of digital collaboration.
+              </Text>
+              <Text color="gray.500" fontSize="xs">
                 © 2024 Slocket. All rights reserved.
               </Text>
             </VStack>
             
-            <HStack spacing={6}>
-              <Icon
-                as={FaGithub}
-                w={6}
-                h={6}
-                color="gray.400"
-                _hover={{ color: 'white', cursor: 'pointer' }}
-                transition="color 0.2s"
-              />
-              <Icon
-                as={FaTwitter}
-                w={6}
-                h={6}
-                color="gray.400"
-                _hover={{ color: 'white', cursor: 'pointer' }}
-                transition="color 0.2s"
-              />
-              <Icon
-                as={FaLinkedin}
-                w={6}
-                h={6}
-                color="gray.400"
-                _hover={{ color: 'white', cursor: 'pointer' }}
-                transition="color 0.2s"
-              />
-            </HStack>
+            <VStack spacing={4}>
+              <Text fontSize="sm" color="gray.300" fontWeight="600">
+                Connect With Us
+              </Text>
+              <HStack spacing={6}>
+                <Box
+                  as="button"
+                  p={3}
+                  borderRadius="full"
+                  bg="rgba(255, 255, 255, 0.1)"
+                  _hover={{ 
+                    bg: 'rgba(255, 255, 255, 0.2)',
+                    transform: 'translateY(-2px)',
+                  }}
+                  transition="all 0.3s ease"
+                >
+                  <Icon as={FaGithub} w={5} h={5} />
+                </Box>
+                <Box
+                  as="button"
+                  p={3}
+                  borderRadius="full"
+                  bg="rgba(255, 255, 255, 0.1)"
+                  _hover={{ 
+                    bg: 'rgba(255, 255, 255, 0.2)',
+                    transform: 'translateY(-2px)',
+                  }}
+                  transition="all 0.3s ease"
+                >
+                  <Icon as={FaTwitter} w={5} h={5} />
+                </Box>
+                <Box
+                  as="button"
+                  p={3}
+                  borderRadius="full"
+                  bg="rgba(255, 255, 255, 0.1)"
+                  _hover={{ 
+                    bg: 'rgba(255, 255, 255, 0.2)',
+                    transform: 'translateY(-2px)',
+                  }}
+                  transition="all 0.3s ease"
+                >
+                  <Icon as={FaLinkedin} w={5} h={5} />
+                </Box>
+              </HStack>
+            </VStack>
           </Stack>
         </Container>
       </Box>
