@@ -1,0 +1,19 @@
+Type: A
+Name: @ (or getslocket.com)
+IPv4: 185.199.108.153
+Proxy: DNS only (gray cloud)
+
+Type: A  
+Name: @ (or getslocket.com)
+IPv4: 185.199.109.153
+Proxy: DNS only (gray cloud)
+
+Type: A
+Name: @ (or getslocket.com) 
+IPv4: 185.199.110.153
+Proxy: DNS only (gray cloud)
+
+Type: A
+Name: @ (or getslocket.com)
+IPv4: 185.199.111.153  
+Proxy: DNS only (gray cloud)
