@@ -307,16 +307,6 @@ function App() {
           <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={16} alignItems="center">
             <VStack spacing={8} align={{ base: 'center', lg: 'start' }} textAlign={{ base: 'center', lg: 'left' }}>
               <Box>
-                <Text
-                  fontSize="sm"
-                  fontWeight="600"
-                  color="rgba(255, 255, 255, 0.8)"
-                  textTransform="uppercase"
-                  letterSpacing="wider"
-                  mb={4}
-                >
-                  Welcome to the Future
-                </Text>
                 <Heading
                   size={heroSize}
                   fontWeight="900"
@@ -324,17 +314,7 @@ function App() {
                   letterSpacing="-0.02em"
                   mb={6}
                 >
-                  Connect Beyond
-                  <Text as="span" display="block" color="rgba(255, 255, 255, 0.9)">
-                    Boundaries with
-                  </Text>
-                  <Text 
-                    as="span" 
-                    bgGradient="linear(to-r, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.8))"
-                    bgClip="text"
-                  >
-                    Slocket
-                  </Text>
+                  Sell more solar panels with Slocket
                 </Heading>
                 <Text 
                   fontSize={{ base: 'lg', md: 'xl' }} 
@@ -342,8 +322,7 @@ function App() {
                   lineHeight="1.8"
                   maxW="500px"
                 >
-                  Experience seamless communication that adapts to your workflow. 
-                  Built for teams who demand excellence.
+                  Skyrocket sales without changing day to day operations.
                 </Text>
               </Box>
               
@@ -430,7 +409,7 @@ function App() {
                 letterSpacing="-0.02em"
                 lineHeight="1.2"
               >
-                Redefining Digital Communication
+                Solar Sales Powered by AI
               </Heading>
               <Text
                 fontSize="xl"
@@ -438,33 +417,49 @@ function App() {
                 lineHeight="1.8"
                 textAlign="center"
               >
-                We're not just another communication tool. Slocket represents a paradigm shift 
-                in how teams connect, collaborate, and create together. Our platform combines 
-                cutting-edge technology with intuitive design to deliver experiences that feel 
-                natural and powerful.
+                At Slocket, we believe solar companies should focus on what they do best: installing panels and serving customers. Not chasing leads or struggling with outdated sales processes.
+              </Text>
+              <Text
+                fontSize="xl"
+                color={useColorModeValue('gray.600', 'gray.300')}
+                lineHeight="1.8"
+                textAlign="center"
+              >
+                That's why we built a smarter way to grow your solar business. Using advanced AI-driven systems, we help you identify the right homeowners, generate high-quality leads, and turn them into booked appointments.
+              </Text>
+              <Text
+                fontSize={{ base: 'xl', md: '2xl' }}
+                color={useColorModeValue('gray.700', 'gray.200')}
+                lineHeight="1.7"
+                textAlign="center"
+                fontWeight="700"
+                mt={4}
+                mb={2}
+              >
+                Our model is simple: if we don't generate revenue for you, you don't pay.
               </Text>
             </VStack>
             
-            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10} w="full">
+            {/* <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10} w="full">
               <Feature
                 icon={FaRocket}
-                title="Lightning Performance"
-                description="Experience sub-second response times with our globally distributed infrastructure powered by edge computing technology."
+                title="AI-Powered Targeting"
+                description="Our advanced AI analyzes thousands of data points to identify homeowners most likely to say 'yes' to solar, so you connect with the right people at the right time."
                 gradient="linear-gradient(135deg, #ff6b6b, #ee5a24)"
               />
               <Feature
                 icon={FaShieldAlt}
-                title="Military-Grade Security"
-                description="Your conversations are protected by quantum-resistant encryption and zero-knowledge architecture."
+                title="Exclusive Leads"
+                description="No sharing with competitors. Unlike traditional lead gen companies, we provide exclusive, high-quality leads with built-in AI filtering."
                 gradient="linear-gradient(135deg, #4ecdc4, #44a08d)"
               />
               <Feature
                 icon={FaUsers}
-                title="Seamless Collaboration"
-                description="Real-time synchronization across all devices with intelligent conflict resolution and version control."
+                title="Done-For-You System"
+                description="Slocket plugs into your existing operations. You keep selling and installing panels the way you do today. We just keep your calendar full of qualified prospects."
                 gradient="linear-gradient(135deg, #667eea, #764ba2)"
               />
-            </SimpleGrid>
+            </SimpleGrid> */}
           </VStack>
         </Container>
       </Box>
@@ -499,35 +494,30 @@ function App() {
                 maxW="2xl"
                 lineHeight="1.7"
               >
-                Get instant answers to the most common questions about Slocket and 
-                discover how we can transform your team's communication.
+                Get instant answers to the most common questions about Slocket.
               </Text>
             </VStack>
             
             <Accordion allowToggle w="full">
               <FAQItem
-                question="What makes Slocket different from other communication platforms?"
-                answer="Slocket combines enterprise-grade security with consumer-friendly design. Our unique approach focuses on contextual communication, intelligent routing, and seamless integration with your existing workflow, making it feel less like a tool and more like a natural extension of your team."
+                question="How does Slocket actually work?"
+                answer="We combine AI-powered targeting, automated outreach, and optimized appointment-setting to bring your solar business new opportunities. Instead of guessing who might be interested, our system identifies the right prospects and nurtures them into ready-to-buy homeowners."
               />
               <FAQItem
-                question="How does Slocket ensure the security of our communications?"
-                answer="We employ end-to-end encryption, zero-knowledge architecture, and quantum-resistant protocols. Our infrastructure is SOC 2 Type II compliant, GDPR compliant, and undergoes regular third-party security audits. Your data never touches our servers in an unencrypted state."
+                question="Do I have to change how my business runs?"
+                answer="Nope. Slocket plugs into your existing operations. You keep selling and installing panels the way you do today. We just keep your calendar full of qualified prospects."
               />
               <FAQItem
-                question="What pricing options are available?"
-                answer="We offer flexible pricing starting with a generous free tier for small teams, scaling up to enterprise solutions. Our pricing is transparent with no hidden fees, and we provide custom enterprise packages for organizations with specific requirements."
+                question="What does it cost?"
+                answer="Nothing upfront. We only win when you win. You pay only when we generate real results."
               />
               <FAQItem
-                question="Can Slocket integrate with our existing tools?"
-                answer="Absolutely! Slocket offers native integrations with 200+ popular tools including Slack, Microsoft Teams, Google Workspace, Jira, GitHub, and more. Our robust API also enables custom integrations tailored to your specific workflow needs."
+                question="Why use AI?"
+                answer="AI helps us analyze thousands of data points so we can zero in on homeowners most likely to say 'yes' to solar. It also personalizes outreach and timing, so you connect with the right people, at the right time."
               />
               <FAQItem
-                question="What kind of support do you provide?"
-                answer="We provide 24/7 premium support through multiple channels including live chat, email, and video calls. Our dedicated customer success team ensures smooth onboarding and ongoing optimization of your Slocket experience."
-              />
-              <FAQItem
-                question="Is there a free trial available?"
-                answer="Yes! We offer a comprehensive 14-day free trial with full access to all premium features. No credit card required, no commitments. You can also schedule a personalized demo to see Slocket in action with your specific use cases."
+                question="What if I already have a sales team?"
+                answer="Perfect. Slocket doesn't replace your team. We handle the prospecting and appointment-setting, so your reps can focus on what they do best: closing deals."
               />
             </Accordion>
           </VStack>
@@ -562,58 +552,20 @@ function App() {
                 </Heading>
               </HStack>
               <Text color="gray.400" fontSize="sm" maxW="300px" textAlign={{ base: 'center', md: 'left' }}>
-                Connecting teams, empowering communication, building the future of digital collaboration.
+                <Link 
+                  href="mailto:hello@getSlocket.com"
+                  color="gray.300"
+                  _hover={{ color: 'white', textDecoration: 'underline' }}
+                  transition="all 0.2s ease"
+                >
+                  hello@getSlocket.com
+                </Link>
+                <br />
+                (571) 457-1882
               </Text>
               <Text color="gray.500" fontSize="xs">
-                © 2024 Slocket. All rights reserved.
+                © 2025 Slocket. All rights reserved.
               </Text>
-            </VStack>
-            
-            <VStack spacing={4}>
-              <Text fontSize="sm" color="gray.300" fontWeight="600">
-                Connect With Us
-              </Text>
-              <HStack spacing={6}>
-                <Box
-                  as="button"
-                  p={3}
-                  borderRadius="full"
-                  bg="rgba(255, 255, 255, 0.1)"
-                  _hover={{ 
-                    bg: 'rgba(255, 255, 255, 0.2)',
-                    transform: 'translateY(-2px)',
-                  }}
-                  transition="all 0.3s ease"
-                >
-                  <Icon as={FaGithub} w={5} h={5} />
-                </Box>
-                <Box
-                  as="button"
-                  p={3}
-                  borderRadius="full"
-                  bg="rgba(255, 255, 255, 0.1)"
-                  _hover={{ 
-                    bg: 'rgba(255, 255, 255, 0.2)',
-                    transform: 'translateY(-2px)',
-                  }}
-                  transition="all 0.3s ease"
-                >
-                  <Icon as={FaTwitter} w={5} h={5} />
-                </Box>
-                <Box
-                  as="button"
-                  p={3}
-                  borderRadius="full"
-                  bg="rgba(255, 255, 255, 0.1)"
-                  _hover={{ 
-                    bg: 'rgba(255, 255, 255, 0.2)',
-                    transform: 'translateY(-2px)',
-                  }}
-                  transition="all 0.3s ease"
-                >
-                  <Icon as={FaLinkedin} w={5} h={5} />
-                </Box>
-              </HStack>
             </VStack>
           </Stack>
         </Container>
