@@ -2,7 +2,7 @@
   "name": "slocket-landing",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://kunal-bham.github.io/slocket",
+  "homepage": "https://getslocket.com",
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.1",
